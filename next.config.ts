@@ -2,8 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "export",
-  basePath: "/Priyesh.github.io",
-  assetPrefix: "/Priyesh.github.io",
+  basePath: "/Priyesh",
+  assetPrefix: "/Priyesh",
   images: { unoptimized: true },
   /* config options here */
   typescript: {

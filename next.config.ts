@@ -1,9 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "export",
-  basePath: "/Priyesh",
-  assetPrefix: "/Priyesh",
   images: { unoptimized: true },
   /* config options here */
   typescript: {

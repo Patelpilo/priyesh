@@ -13,26 +13,44 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport = {
+  themeColor: "#111827", // dark theme matching portfolio
+  width: "device-width",
+  initialScale: 1,
+};
+
 export const metadata: Metadata = {
-  title: "Z.ai Code Scaffold - AI-Powered Development",
-  description: "Modern Next.js scaffold optimized for AI-powered development with Z.ai. Built with TypeScript, Tailwind CSS, and shadcn/ui.",
-  keywords: ["Z.ai", "Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "AI development", "React"],
-  authors: [{ name: "Z.ai Team" }],
+  title: "Priyesh Bhalala | AI & Machine Learning Engineer Portfolio",
+  description: "Portfolio of Priyesh Bhalala, an AI/ML and Generative AI Engineer. Exploring projects in Machine Learning, Deep Learning, RAG systems, LLMs, and Python development.",
+  keywords: ["Priyesh Bhalala", "AI Engineer", "Machine Learning Engineer", "Generative AI", "LLM", "RAG Chatbot", "Python Developer", "Deep Learning", "Portfolio", "AI Portfolio"],
+  authors: [{ name: "Priyesh Bhalala" }],
   icons: {
-    icon: "https://z-cdn.chatglm.cn/z-ai/static/logo.svg",
+    icon: "/logo.png",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
   openGraph: {
-    title: "Z.ai Code Scaffold",
-    description: "AI-powered development with modern React stack",
-    url: "https://chat.z.ai",
-    siteName: "Z.ai",
+    title: "Priyesh Bhalala | AI & Machine Learning Engineer Portfolio",
+    description: "Explore projects, skills, and experience of Priyesh Bhalala, specializing in Generative AI, Machine Learning, and Python Development.",
+    siteName: "Priyesh Bhalala Portfolio",
     type: "website",
+    locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Z.ai Code Scaffold",
-    description: "AI-powered development with modern React stack",
+    title: "Priyesh Bhalala | AI & Machine Learning Engineer Portfolio",
+    description: "Explore projects, skills, and experience of Priyesh Bhalala, specializing in Generative AI, Machine Learning, and Python Development.",
   },
+  category: "technology",
 };
 
 export default function RootLayout({
@@ -47,6 +65,39 @@ export default function RootLayout({
       >
         {children}
         <Toaster />
+        {/* JSON-LD Structured Data for Strong SEO */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Priyesh Bhalala",
+              "alternateName": "Priyesh",
+              "url": "https://linkedin.com/in/priyesh-bhalala-60ba0330b",
+              "image": "/logo.png",
+              "sameAs": [
+                "https://github.com/priyeshbhalala",
+                "https://linkedin.com/in/priyesh-bhalala-60ba0330b"
+              ],
+              "jobTitle": "AI & Machine Learning Engineer",
+              "description": "Portfolio of Priyesh Bhalala, an AI/ML and Generative AI Engineer. Exploring projects in Machine Learning, Deep Learning, RAG systems, LLMs, and Python development.",
+              "knowsAbout": [
+                "Machine Learning",
+                "Deep Learning",
+                "TensorFlow",
+                "Keras",
+                "Computer Vision",
+                "Prompt Engineering",
+                "RAG Systems",
+                "LLMs",
+                "Generative AI",
+                "Python",
+                "Next.js"
+              ]
+            })
+          }}
+        />
       </body>
     </html>
   );

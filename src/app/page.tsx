@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
-import { Github, Linkedin, Mail, Download, ChevronRight, Brain, Code, Database, BarChart3, Zap, Cpu, ArrowRight, Briefcase, Target, TrendingUp, Settings, Terminal, Network, Sparkles, Layers, CircuitBoard, Bot, Binary } from 'lucide-react'
+import { Github, Linkedin, Mail, Download, Eye, ChevronRight, Brain, Code, Database, BarChart3, Zap, Cpu, ArrowRight, Briefcase, Target, TrendingUp, Settings, Terminal, Network, Sparkles, Layers, CircuitBoard, Bot, Binary, Menu, X } from 'lucide-react'
 
 const skills = {
   aiML: { skills: ['Machine Learning', 'Deep Learning', 'TensorFlow', 'Keras', 'CNN', 'Transfer Learning', 'Fine-Tuning', 'Computer Vision', 'GANs', 'VAEs', 'Prompt Engineering', 'RAG Systems', 'LLM Fine-Tuning', 'GPT Models', 'LLaMA', 'BERT', 'Qwen', 'Diffusion Models', 'AI Automation', 'Bias Mitigation'], level: 95 },
@@ -570,6 +570,7 @@ function TypingAnimation({ words }: { words: string[] }) {
 
 export default function Portfolio() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
 
   const handleContactSubmit = (e: React.FormEvent) => {
@@ -718,7 +719,8 @@ export default function Portfolio() {
         animate={{ y: 0 }}
         className="fixed top-0 left-0 right-0 z-50 backdrop-blur-2xl bg-black/40 border-b border-white/10"
       >
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center">
+          {/* Logo */}
           <motion.a
             href="#about"
             className="relative"
@@ -733,12 +735,11 @@ export default function Portfolio() {
               </motion.div>
               PB
             </div>
-            <motion.div
-              className="absolute -inset-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-xl opacity-0 hover:opacity-100 transition-opacity"
-            />
           </motion.a>
-          <div className="flex gap-1 items-center bg-white/5 rounded-full px-2 py-1 border border-white/10">
-            {['About', 'Skills', 'Experience', 'Projects', 'Contact'].map((item, index) => (
+
+          {/* Desktop nav links */}
+          <div className="hidden md:flex gap-1 items-center bg-white/5 rounded-full px-2 py-1 border border-white/10">
+            {['About', 'Skills', 'Experience', 'Projects', 'Contact'].map((item) => (
               <motion.a
                 key={item}
                 href={`#${item.toLowerCase()}`}
@@ -751,13 +752,89 @@ export default function Portfolio() {
               </motion.a>
             ))}
           </div>
+
+          {/* Hamburger button - mobile only */}
+          <motion.button
+            id="mobile-menu-toggle"
+            className="md:hidden p-2 rounded-lg bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:bg-white/10 transition-all"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            whileTap={{ scale: 0.9 }}
+            aria-label="Toggle mobile menu"
+          >
+            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+          </motion.button>
         </div>
       </motion.nav>
+
+      {/* Mobile Slide-in Drawer */}
+      <motion.div
+        id="mobile-nav-drawer"
+        initial={{ x: '100%' }}
+        animate={{ x: mobileMenuOpen ? 0 : '100%' }}
+        transition={{ type: 'spring', damping: 28, stiffness: 260 }}
+        className="fixed top-0 right-0 h-full w-72 z-[60] bg-gray-950/95 backdrop-blur-2xl border-l border-white/10 flex flex-col pt-6 pb-10 shadow-2xl"
+      >
+        {/* Drawer header */}
+        <div className="flex items-center justify-between px-6 pb-6 border-b border-white/10">
+          <div className="text-xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+            Menu
+          </div>
+          <motion.button
+            id="mobile-menu-close"
+            onClick={() => setMobileMenuOpen(false)}
+            className="p-2 rounded-lg bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:bg-white/10 transition-all"
+            whileTap={{ scale: 0.9 }}
+            aria-label="Close menu"
+          >
+            <X size={20} />
+          </motion.button>
+        </div>
+        {/* Drawer nav links */}
+        <nav className="flex flex-col gap-1 px-4 mt-6">
+          {['About', 'Skills', 'Experience', 'Projects', 'Contact'].map((item, i) => (
+            <motion.a
+              key={item}
+              href={`#${item.toLowerCase()}`}
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: mobileMenuOpen ? 1 : 0, x: mobileMenuOpen ? 0 : 30 }}
+              transition={{ delay: i * 0.07, duration: 0.3 }}
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:text-white hover:bg-white/10 transition-all font-medium text-base"
+            >
+              <ChevronRight size={16} className="text-purple-400" />
+              {item}
+            </motion.a>
+          ))}
+        </nav>
+        {/* Drawer footer social icons */}
+        <div className="mt-auto px-6 pt-6 border-t border-white/10 flex gap-4">
+          <a href="https://github.com/Patelpilo" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-white/5 hover:bg-purple-500/20 transition-colors">
+            <Github size={20} className="text-gray-400 hover:text-purple-400" />
+          </a>
+          <a href="https://linkedin.com/in/priyesh-bhalala-60ba0330b" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-white/5 hover:bg-purple-500/20 transition-colors">
+            <Linkedin size={20} className="text-gray-400 hover:text-purple-400" />
+          </a>
+          <a href="mailto:bhalalapriyesh90@gmail.com" className="p-2 rounded-lg bg-white/5 hover:bg-purple-500/20 transition-colors">
+            <Mail size={20} className="text-gray-400 hover:text-purple-400" />
+          </a>
+        </div>
+      </motion.div>
+
+      {/* Mobile drawer backdrop */}
+      {mobileMenuOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-[55] bg-black/60 backdrop-blur-sm md:hidden"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
 
       {/* Hero Section */}
       <motion.section
         id="about"
-        className="relative min-h-screen flex items-center justify-center px-6 pt-20 overflow-hidden"
+        className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 pt-20 overflow-hidden"
         style={{ opacity, scale }}
       >
         {/* Neural network background effect */}
@@ -798,7 +875,7 @@ export default function Portfolio() {
           ))}
         </svg>
 
-        <div className="max-w-5xl mx-auto text-center relative z-10">
+        <div className="max-w-5xl mx-auto text-center relative z-10 w-full">
           {/* Floating icons */}
           {floatingIcons.map((item, index) => {
             const Icon = item.icon
@@ -850,7 +927,7 @@ export default function Portfolio() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-6xl md:text-8xl font-bold mb-6 leading-tight"
+            className="text-4xl sm:text-6xl md:text-8xl font-bold mb-4 sm:mb-6 leading-tight"
           >
             <motion.span
               className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent"
@@ -865,7 +942,7 @@ export default function Portfolio() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-2xl md:text-3xl text-gray-300 mb-6 font-light h-10"
+            className="text-lg sm:text-2xl md:text-3xl text-gray-300 mb-4 sm:mb-6 font-light h-8 sm:h-10"
           >
             <TypingAnimation words={['Generative AI Enthusiast', 'Machine Learning Engineer', 'Python Developer', 'Full-Stack AI Engineer']} />
           </motion.p>
@@ -874,7 +951,7 @@ export default function Portfolio() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-xl text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed"
+            className="text-sm sm:text-base md:text-xl text-gray-400 max-w-3xl mx-auto mb-8 sm:mb-12 leading-relaxed px-2"
           >
             Building <span className="text-purple-400 font-semibold">intelligent systems</span>, <span className="text-pink-400 font-semibold">AI-powered applications</span>, and scalable software solutions with Machine Learning, Generative AI, and Python.
           </motion.p>
@@ -903,13 +980,13 @@ export default function Portfolio() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center w-full px-4 sm:px-0"
           >
             <motion.button
               whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(168, 85, 247, 0.4)" }}
               whileTap={{ scale: 0.95 }}
               onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-              className="group relative px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl font-semibold text-white shadow-lg shadow-purple-500/25 flex items-center gap-2 overflow-hidden"
+              className="group relative w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl font-semibold text-white shadow-lg shadow-purple-500/25 flex items-center justify-center gap-2 overflow-hidden"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <span className="relative flex items-center gap-2">
@@ -920,19 +997,30 @@ export default function Portfolio() {
             </motion.button>
             <motion.a
               href="./Priyesh_Bhalala_AIML_Resume_v4.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.05, borderColor: 'rgba(59, 130, 246, 0.5)' }}
+              whileTap={{ scale: 0.95 }}
+              className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-xl font-semibold text-white backdrop-blur-sm flex items-center justify-center gap-2 hover:bg-white/10 transition-all cursor-pointer"
+            >
+              <Eye size={20} />
+              View Resume
+            </motion.a>
+            <motion.a
+              href="./Priyesh_Bhalala_AIML_Resume_v4.pdf"
               download="Priyesh_Bhalala_AIML_Resume.pdf"
               whileHover={{ scale: 1.05, borderColor: 'rgba(168, 85, 247, 0.5)' }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-white/5 border border-white/10 rounded-xl font-semibold text-white backdrop-blur-sm flex items-center gap-2 hover:bg-white/10 transition-all cursor-pointer"
+              className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-xl font-semibold text-white backdrop-blur-sm flex items-center justify-center gap-2 hover:bg-white/10 transition-all cursor-pointer"
             >
               <Download size={20} />
-              Resume
+              Download Resume
             </motion.a>
             <motion.button
               whileHover={{ scale: 1.05, borderColor: 'rgba(236, 72, 153, 0.5)' }}
               whileTap={{ scale: 0.95 }}
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-              className="px-8 py-4 bg-white/5 border border-white/10 rounded-xl font-semibold text-white backdrop-blur-sm flex items-center gap-2 hover:bg-white/10 transition-all"
+              className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-xl font-semibold text-white backdrop-blur-sm flex items-center justify-center gap-2 hover:bg-white/10 transition-all"
             >
               <Mail size={20} />
               Contact Me
@@ -959,7 +1047,7 @@ export default function Portfolio() {
       </motion.section>
 
       {/* About Section */}
-      <section id="about" className="relative py-32 px-6">
+      <section id="about" className="relative py-16 sm:py-24 lg:py-32 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -979,7 +1067,7 @@ export default function Portfolio() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="grid md:grid-cols-2 gap-12 items-center"
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-12 items-start"
           >
             <div className="space-y-6">
               <div className="p-8 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-purple-500/30 transition-all duration-300">
@@ -1031,7 +1119,7 @@ export default function Portfolio() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="relative py-32 px-6 overflow-hidden">
+      <section id="skills" className="relative py-16 sm:py-24 lg:py-32 px-4 sm:px-6 overflow-hidden">
         {/* Background decoration */}
         <div className="absolute top-20 right-20 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-20 left-20 w-72 h-72 bg-pink-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -1054,7 +1142,7 @@ export default function Portfolio() {
             <p className="text-gray-400 text-lg">Technologies and tools I work with</p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {Object.entries({
               'AI & ML': { icon: Brain, data: skills.aiML, gradient: 'from-purple-500/20 to-pink-500/20', border: 'border-purple-500/30', accent: 'bg-purple-500' },
               'Programming': { icon: Code, data: skills.programming, gradient: 'from-orange-500/20 to-red-500/20', border: 'border-orange-500/30', accent: 'bg-orange-500' },
@@ -1129,7 +1217,7 @@ export default function Portfolio() {
       </section>
 
       {/* Experience Timeline */}
-      <section id="experience" className="relative py-32 px-6 overflow-hidden">
+      <section id="experience" className="relative py-16 sm:py-24 lg:py-32 px-4 sm:px-6 overflow-hidden">
         {/* Background decoration */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -1205,7 +1293,7 @@ export default function Portfolio() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mt-6">
                   <motion.div
                     whileHover={{ x: 5 }}
                     className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-purple-500/30 transition-all duration-300"
@@ -1268,7 +1356,7 @@ export default function Portfolio() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12"
+            className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mt-8 sm:mt-12"
           >
             {[
               { icon: Code, label: 'Projects', value: '10+' },
@@ -1300,7 +1388,7 @@ export default function Portfolio() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="relative py-32 px-6 overflow-hidden">
+      <section id="projects" className="relative py-16 sm:py-24 lg:py-32 px-4 sm:px-6 overflow-hidden">
         {/* Animated background */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <FloatingParticles count={20} />
@@ -1324,7 +1412,7 @@ export default function Portfolio() {
             <p className="text-gray-400 text-lg">AI-powered applications and solutions</p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
             {projects.map((project, index) => {
               const projectIcons: any = {
                 0: Brain,
@@ -1460,7 +1548,7 @@ export default function Portfolio() {
       </section>
 
       {/* Education Section */}
-      <section id="education" className="relative py-32 px-6">
+      <section id="education" className="relative py-16 sm:py-24 lg:py-32 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -1520,7 +1608,7 @@ export default function Portfolio() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="relative py-32 px-6">
+      <section id="contact" className="relative py-16 sm:py-24 lg:py-32 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -1535,7 +1623,7 @@ export default function Portfolio() {
             <p className="text-gray-400 text-lg">Let's connect and build something amazing together</p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {/* Contact Info */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -1661,7 +1749,7 @@ export default function Portfolio() {
       </section>
 
       {/* Footer */}
-      <footer className="relative py-12 px-6 border-t border-white/10">
+      <footer className="relative py-8 sm:py-12 px-4 sm:px-6 border-t border-white/10">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-2">

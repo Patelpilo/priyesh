@@ -760,6 +760,7 @@ export default function Portfolio() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             whileTap={{ scale: 0.9 }}
             aria-label="Toggle mobile menu"
+            suppressHydrationWarning
           >
             {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
           </motion.button>
@@ -785,6 +786,7 @@ export default function Portfolio() {
             className="p-2 rounded-lg bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:bg-white/10 transition-all"
             whileTap={{ scale: 0.9 }}
             aria-label="Close menu"
+            suppressHydrationWarning
           >
             <X size={20} />
           </motion.button>
@@ -987,6 +989,7 @@ export default function Portfolio() {
               whileTap={{ scale: 0.95 }}
               onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
               className="group relative w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl font-semibold text-white shadow-lg shadow-purple-500/25 flex items-center justify-center gap-2 overflow-hidden"
+              suppressHydrationWarning
             >
               <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <span className="relative flex items-center gap-2">
@@ -1002,6 +1005,7 @@ export default function Portfolio() {
               whileHover={{ scale: 1.05, borderColor: 'rgba(59, 130, 246, 0.5)' }}
               whileTap={{ scale: 0.95 }}
               className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-xl font-semibold text-white backdrop-blur-sm flex items-center justify-center gap-2 hover:bg-white/10 transition-all cursor-pointer"
+              suppressHydrationWarning
             >
               <Eye size={20} />
               View Resume
@@ -1012,6 +1016,7 @@ export default function Portfolio() {
               whileHover={{ scale: 1.05, borderColor: 'rgba(168, 85, 247, 0.5)' }}
               whileTap={{ scale: 0.95 }}
               className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-xl font-semibold text-white backdrop-blur-sm flex items-center justify-center gap-2 hover:bg-white/10 transition-all cursor-pointer"
+              suppressHydrationWarning
             >
               <Download size={20} />
               Download Resume
@@ -1021,6 +1026,7 @@ export default function Portfolio() {
               whileTap={{ scale: 0.95 }}
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
               className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-xl font-semibold text-white backdrop-blur-sm flex items-center justify-center gap-2 hover:bg-white/10 transition-all"
+              suppressHydrationWarning
             >
               <Mail size={20} />
               Contact Me
@@ -1710,6 +1716,7 @@ export default function Portfolio() {
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors"
                     placeholder="Your name"
+                    suppressHydrationWarning
                   />
                 </div>
                 <div>
@@ -1721,6 +1728,7 @@ export default function Portfolio() {
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors"
                     placeholder="your@email.com"
+                    suppressHydrationWarning
                   />
                 </div>
                 <div>
@@ -1732,6 +1740,7 @@ export default function Portfolio() {
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors resize-none"
                     placeholder="Your message..."
+                    suppressHydrationWarning
                   />
                 </div>
                 <motion.button
@@ -1739,6 +1748,7 @@ export default function Portfolio() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   className="w-full py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg font-semibold text-white hover:opacity-90 transition-opacity"
+                  suppressHydrationWarning
                 >
                   Send Message
                 </motion.button>
